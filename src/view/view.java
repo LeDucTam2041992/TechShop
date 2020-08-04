@@ -8,18 +8,19 @@ import java.io.IOException;
 import java.util.*;
 
 public class view {
-    private static final String smFile = "SmartPhone.Dat";
-    private static Controller controller = new Controller();
 
     public static void main(String[] args) throws IOException {
         final String pass = "111111";
         final String delayFile = "Delay.dat";
         final String transactionHistory = "TransactionHistory.dat";
         final String cusFIle = "Customer.dat";
+        final String smFile = "SmartPhone.Dat";
         int choice = -1;
         int choiceOfAdmin = -1;
         LinkedList<Smartphone> smartphones;
         LinkedList<Customer> customers;
+        Controller controller = Controller.getInstance();
+
         Scanner sc = new Scanner(System.in);
         do {
             System.out.println("******************Menu******************");
@@ -157,9 +158,10 @@ public class view {
                                                     }
                                                 }
                                             } else controller.writeCustomerToFile(delayFile,customer);
-                                            controller.writeSmartPhoneToFile(smFile,smartphones);
                                         }
                                         controller.deleteFile(cusFIle);
+                                        controller.deleteFile(smFile);
+                                        controller.writeSmartPhoneToFile(smFile,smartphones);
                                     } else System.out.println("You dont have new order!");
                                     break;
                                 case 4 :
@@ -182,6 +184,7 @@ public class view {
                                             break;
                                         }
                                     }
+                                    controller.deleteFile(smFile);
                                     controller.writeSmartPhoneToFile(smFile,smartphones);
                                     break;
                             }

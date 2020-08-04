@@ -3,8 +3,6 @@ package controller;
 import model.Customer;
 import model.Smartphone;
 import model.Specifications;
-
-import javax.imageio.IIOException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +18,21 @@ public class Controller {
     private BufferedReader bufferedReader;
     final String SPEC_FILE = "Specifications.dat";
     final String CUSTOM_FILE = "Customer.dat";
+
+    private static Controller instance;
+
+    private Controller(){}
+
+    public static Controller getInstance(){
+        if (instance == null) {
+            synchronized (Controller.class) {
+                if (instance == null) {
+                    instance = new Controller();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void openFileToWrite(String fileName) {
         try {
